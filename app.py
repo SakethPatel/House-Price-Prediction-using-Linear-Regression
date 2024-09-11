@@ -20,12 +20,12 @@ distance_to_mrt = st.number_input('Distance to the nearest MRT station (meters)'
 num_convenience_stores = st.number_input('Number of Convenience Stores', min_value=0, value=5, step=1)
 latitude = st.number_input('Latitude', min_value=24.0, max_value=26.0, value=25.0, step=0.000001)
 longitude = st.number_input('Longitude', min_value=121.0, max_value=122.0, value=121.5, step=0.000001)
-encoded_month_year = st.number_input('Encoded Month/Year', min_value=0, value=11, step=1)
+
 
 # Predict button
 if st.button('Predict'):
     # Prepare the input for prediction
-    input_data = np.array([house_age, distance_to_mrt, num_convenience_stores, latitude, longitude, encoded_month_year]).reshape(1, -1)
+    input_data = np.array([house_age, distance_to_mrt, num_convenience_stores, latitude, longitude]).reshape(1, -1)
     
     # Scale input data
     input_data_scaled = scaler.transform(input_data)
