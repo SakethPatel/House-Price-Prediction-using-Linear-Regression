@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>House Price Prediction</title>
+</head>
+<body>
+    <h1>House Price Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="house_age">House Age:</label>
+        <input type="number" step="0.1" name="house_age" required><br><br>
+        
+        <label for="distance_to_mrt">Distance to Nearest MRT Station (meters):</label>
+        <input type="number" step="0.1" name="distance_to_mrt" required><br><br>
+        
+        <label for="num_convenience_stores">Number of Convenience Stores:</label>
+        <input type="number" name="num_convenience_stores" required><br><br>
+        
+        <label for="latitude">Latitude:</label>
+        <input type="number" step="0.000001" name="latitude" required><br><br>
+        
+        <label for="longitude">Longitude:</label>
+        <input type="number" step="0.000001" name="longitude" required><br><br>
+        
+        
+        
+        <input type="submit" value="Predict">
+    </form>
+    
+    {% if prediction_text %}
+    <h2 style="color: green;">{{ prediction_text }}</h2>
+    {% endif %}
+</body>
+</html>
