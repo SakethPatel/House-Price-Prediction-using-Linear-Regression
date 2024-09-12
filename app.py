@@ -18,14 +18,12 @@ st.title('House Price Prediction')
 house_age = st.number_input('House Age (years)', min_value=0.0, value=10.0, step=0.1)
 distance_to_mrt = st.number_input('Distance to the nearest MRT station (meters)', min_value=0.0, value=1000.0, step=0.1)
 num_convenience_stores = st.number_input('Number of Convenience Stores', min_value=0, value=5, step=1)
-latitude = st.number_input('Latitude', min_value=24.0, max_value=26.0, value=25.0, step=0.000001)
-longitude = st.number_input('Longitude', min_value=121.0, max_value=122.0, value=121.5, step=0.000001)
 
 
 # Predict button
 if st.button('Predict'):
     # Prepare the input for prediction
-    input_data = np.array([house_age, distance_to_mrt, num_convenience_stores, latitude, longitude]).reshape(1, -1)
+    input_data = np.array([house_age, distance_to_mrt, num_convenience_stores]).reshape(1, -1)
     
     # Scale input data
     input_data_scaled = scaler.transform(input_data)
@@ -35,3 +33,6 @@ if st.button('Predict'):
 
     # Display the result
     st.success(f'The predicted house price is {prediction:.4f}')
+
+    r2_score = model.score(input_data_scaled, [prediction])
+    st.write(f'R² Score for the prediction: {r2_score:.4f}')
