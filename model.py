@@ -11,11 +11,6 @@ def load_and_preprocess_data(file_path):
     data_raw = pd.read_csv(file_path)
     df = pd.DataFrame(data_raw)
     
-    df['Transaction date1'] = pd.to_datetime(df['Transaction date'])
-    df['Transaction Year'] = df['Transaction date1'].dt.year
-    df['Transaction Month'] = df['Transaction date1'].dt.month
-    df['Month/Year'] = df['Transaction Month'].astype('str') + '/' + df['Transaction Year'].astype('str')
-
     df.loc[(df['Distance to the nearest MRT station'] > 1000) & 
            (df['Distance to the nearest MRT station'] <= 2000) & 
            (df['House price of unit area'] == 0), 'House price of unit area'] = 28
@@ -23,18 +18,15 @@ def load_and_preprocess_data(file_path):
     df.loc[(df['Distance to the nearest MRT station'] > 2000) & 
            (df['House price of unit area'] == 0), 'House price of unit area'] = 15
 
-    le = LabelEncoder()
-    df['encoded_month_year'] = le.fit_transform(df['Month/Year'])
+    
 
-    df.drop(columns=['Transaction date', 'Transaction date1', 'Month/Year', 'Transaction Year', 
-                     'Transaction Month'], axis=1, inplace=True)
+    df.drop(columns=['Transaction date'], axis=1, inplace=True)
 
     return df
 
 # Train the model
 def train_model(df):
-    features = ['House age', 'Distance to the nearest MRT station', 'Number of convenience stores', 
-                'Latitude', 'Longitude']
+    features = ['House age', 'Distance to the nearest MRT station', 'Number of convenience stores']
     X = df[features]
     y = df['House price of unit area']
 
